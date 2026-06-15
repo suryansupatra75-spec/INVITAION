@@ -1,0 +1,247 @@
+/* CSS overrides to hide Missing Piece branding and Buy Now banner */
+
+/* Hide floating watermark */
+[data-framer-name="Watermark"] {
+    display: none !important;
+}
+
+[data-framer-name="Missing Piece Logo"] {
+    display: none !important;
+}
+
+/* Hide top buy banner and buy button stack */
+[data-framer-name="Buy button stack"] {
+    display: none !important;
+}
+
+.framer-ise8hm {
+    display: none !important;
+}
+
+/* Hide Framer default badge if any */
+#__framer-badge-container {
+    display: none !important;
+}
+
+/* --- LUXURIOUS ENTRANCE DOORS STYLES --- */
+
+#door-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999999;
+    display: flex;
+    overflow: hidden;
+    background-color: transparent;
+    pointer-events: auto;
+    transition: visibility 1.5s;
+}
+
+#door-overlay.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.door-panel {
+    width: 50vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background: radial-gradient(circle at center, #4d121c 0%, #1e0306 100%);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+    transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.door-left {
+    left: 0;
+    border-right: 3px double #d4af37;
+    justify-content: flex-end;
+}
+
+.door-right {
+    right: 0;
+    border-left: 3px double #d4af37;
+    justify-content: flex-start;
+}
+
+/* Palace Arch Silhouette design */
+.door-panel::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 75%;
+    border: 1.5px solid rgba(212, 175, 55, 0.25);
+    top: 12.5%;
+    border-radius: 180px 180px 0 0;
+    pointer-events: none;
+}
+
+.door-left::after {
+    right: 25px;
+    border-right: none;
+}
+
+.door-right::after {
+    left: 25px;
+    border-left: none;
+}
+
+/* Sliding Animations when opened */
+#door-overlay.open .door-left {
+    transform: translateX(-100%);
+}
+
+#door-overlay.open .door-right {
+    transform: translateX(100%);
+}
+
+/* Floating Golden Sparks / Sky Lanterns on the doors */
+.glowing-lantern {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    background: radial-gradient(circle, #ffffff 10%, #ffab1a 60%, rgba(255, 171, 26, 0) 100%);
+    border-radius: 50% 50% 40% 40%;
+    box-shadow: 0 0 15px rgba(255, 171, 26, 0.8), 0 0 30px rgba(255, 171, 26, 0.4);
+    opacity: 0;
+    animation: floatUp 8s infinite linear;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(105vh) scale(0.6) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.65;
+    }
+    90% {
+        opacity: 0.65;
+    }
+    100% {
+        transform: translateY(-10vh) scale(1.3) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* Beautiful Wax Seal / Invitation Box Monogram */
+.door-seal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #faf6f0 60%, #ebdcc5 100%);
+    border: 5px double #d4af37;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(212, 175, 55, 0.5);
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: floatAndPulse 4s ease-in-out infinite;
+    user-select: none;
+    transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Hanging Royal Golden Ribbon */
+.door-seal::before {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 60px;
+    background: linear-gradient(90deg, #aa771c 0%, #d4af37 50%, #8b6214 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+    z-index: -1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+#door-overlay.open .door-seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+    pointer-events: none;
+}
+
+.door-seal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.seal-symbol {
+    font-size: 30px;
+    color: #b8860b;
+    margin-bottom: 2px;
+    font-family: 'Gotu', 'Georgia', serif;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
+}
+
+.seal-monogram {
+    font-size: 22px;
+    font-weight: bold;
+    color: #4a0e17;
+    font-family: 'Cormorant Upright', 'Times New Roman', serif;
+    letter-spacing: 2.5px;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.6);
+    padding-bottom: 5px;
+    margin-bottom: 7px;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+.seal-button {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b8860b;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.door-seal:hover .seal-button {
+    color: #4a0e17;
+}
+
+/* Floating & Pulsing combined animation for seal */
+@keyframes floatAndPulse {
+    0% {
+        transform: translate(-50%, -52%);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(212, 175, 55, 0.6);
+    }
+    50% {
+        transform: translate(-50%, -48%);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 0 15px rgba(212, 175, 55, 0);
+    }
+    100% {
+        transform: translate(-50%, -52%);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(212, 175, 55, 0.6);
+    }
+}
+
+/* Style for the decorated elephant in the seal */
+.seal-elephant {
+    width: 80px;
+    height: 55px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seal-elephant svg {
+    width: 100%;
+    height: 100%;
+}
