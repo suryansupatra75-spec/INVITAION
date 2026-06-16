@@ -51,7 +51,11 @@
             }
         });
 
-        document.querySelectorAll('*').forEach(el => {
+        // Query only visible text containers to be safe and avoid touching scripts/styles/svgs
+        document.querySelectorAll('p, span, a, h1, h2, h3, h4, h5, h6, li, button, [class*="framer-text"]').forEach(el => {
+            // Skip elements inside the door overlay
+            if (el.closest('#door-overlay')) return;
+
             if (el.children.length === 0 && el.textContent) {
                 // Remove Missing Piece branding
                 if (el.textContent.includes('© Missing Piece')) {
