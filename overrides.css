@@ -246,8 +246,10 @@
     height: 100%;
 }
 
-/* Hide Cocktail event card */
-[data-framer-name="Cocktail"] {
+/* Hide Cocktail card on all layouts (Desktop, Tablet, Phone) */
+[data-framer-name="Card 3"],
+[name="Card 3"],
+.framer-1a7uxhk-container {
     display: none !important;
 }
 
