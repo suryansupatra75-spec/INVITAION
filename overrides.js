@@ -1,5 +1,21 @@
 // JS overrides to clean up text, branding, and implement the door opening animation
 (function() {
+    // Target date for countdown: June 19, 2026, 6 PM (18:00)
+    const targetDate = new Date('2026-06-19T18:00:00');
+
+    function getCountdownText() {
+        const now = new Date();
+        const diff = targetDate - now;
+        if (diff <= 0) {
+            return '00:00:00:00';
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        return `${days}:${hours}:${minutes}:${seconds}`;
+    }
+
     // 1. Setup the opening click event for the statically injected doors
     function setupDoorEvents() {
         const overlay = document.getElementById('door-overlay');
@@ -17,8 +33,17 @@
         });
     }
 
-    // 2. Clean DOM of branding, watermarks, and customize groom/bride info
+    // 2. Clean DOM of branding, watermarks, and customize event details
     function cleanDOM() {
+        // Map Link Updates
+        document.querySelectorAll('a').forEach(el => {
+            if (el.textContent.includes('See the route') || el.textContent.includes('Click to open the map')) {
+                el.href = 'https://maps.app.goo.gl/SwNNkBX6KJgExP536';
+                el.target = '_blank';
+                el.rel = 'noopener noreferrer';
+            }
+        });
+
         document.querySelectorAll('*').forEach(el => {
             if (el.children.length === 0 && el.textContent) {
                 // Remove Missing Piece branding
@@ -60,7 +85,6 @@
                     el.textContent = '';
                 }
                 if (el.textContent.trim() === '——') {
-                    // Hide parent-grandparent separator line
                     el.textContent = '';
                 }
 
@@ -72,6 +96,37 @@
                 // Hashtag
                 if (el.textContent.includes('#abkan')) {
                     el.textContent = el.textContent.replace('#abkan', '#SanjitWedsNirupama');
+                }
+
+                // --- EVENT DATES UPDATES ---
+                // Mehendi: June 18th
+                if (el.textContent === 'Friday, March 9th 2026') {
+                    el.textContent = 'Thursday, June 18th 2026';
+                }
+                // Haldi: June 18th
+                if (el.textContent === 'Friday, March 10th 2026') {
+                    el.textContent = 'Thursday, June 18th 2026';
+                }
+                // Engagement: June 18th
+                if (el.textContent === 'Friday, March 11th 2026') {
+                    el.textContent = 'Thursday, June 18th 2026';
+                }
+                // Shaadi: June 19th
+                if (el.textContent === 'Friday, March 12th 2026') {
+                    el.textContent = 'Friday, June 19th 2026';
+                }
+                // Reception: June 20th
+                if (el.textContent === 'Friday, March 17th 2026') {
+                    el.textContent = 'Saturday, June 20th 2026';
+                }
+
+                // Override Countdown Timer Value
+                if (/^\d{2}:\d{2}:\d{2}:\d{2}$/.test(el.textContent)) {
+                    el.textContent = getCountdownText();
+                    // Make it visible in case Framer hid it
+                    if (el.style.visibility === 'hidden') {
+                        el.style.visibility = 'visible';
+                    }
                 }
             }
         });
@@ -98,4 +153,9 @@
             observer.observe(document.body, { childList: true, subtree: true });
         });
     }
+
+    // Run countdown update loop
+    setInterval(() => {
+        cleanDOM();
+    }, 1000);
 })();
