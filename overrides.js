@@ -24,13 +24,20 @@
         const seal = overlay.querySelector('.door-seal');
         if (!seal) return;
 
-        seal.addEventListener('click', () => {
+        // Open doors function
+        function openDoors() {
+            if (overlay.classList.contains('open')) return;
             overlay.classList.add('open');
-            // After animation ends, hide completely from layout
             setTimeout(() => {
                 overlay.classList.add('hidden');
             }, 1600); // 1.6s matches CSS transition duration
-        });
+        }
+
+        // Click to open immediately
+        seal.addEventListener('click', openDoors);
+
+        // Auto-open doors automatically after 2.5 seconds to prevent guests from getting stuck/waiting
+        setTimeout(openDoors, 2500);
     }
 
     // 2. Clean DOM of branding, watermarks, and customize event details
