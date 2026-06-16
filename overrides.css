@@ -263,3 +263,8 @@ div:has(+ .framer--slideshow-controls) ul {
     transition: none !important;
 }
 
+div:has(+ .framer--slideshow-controls) ul li > div {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
