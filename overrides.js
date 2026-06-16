@@ -48,9 +48,11 @@
         isCleaning = true;
 
         try {
-            // Map Link Updates
+            // Map Link Updates (including catch-all for missing pieces links)
             document.querySelectorAll('a').forEach(el => {
-                if (el.textContent.includes('See the route') || el.textContent.includes('Click to open the map')) {
+                const isMapText = el.textContent.includes('See the route') || el.textContent.includes('Click to open the map');
+                const isBrandingLink = el.href && (el.href.includes('missingpiece') || el.href.includes('missingpiecedesign') || el.href.includes('missingpieceinvites'));
+                if (isMapText || isBrandingLink) {
                     if (el.href !== 'https://maps.app.goo.gl/SwNNkBX6KJgExP536') {
                         el.href = 'https://maps.app.goo.gl/SwNNkBX6KJgExP536';
                         el.target = '_blank';
@@ -156,6 +158,18 @@
                         if (text.trim() === 'Friday, March 17th 2026') {
                             text = 'Saturday, June 20th 2026';
                             changed = true;
+                        }
+
+                        // Venue Replacements (Rambagh, Jaipur -> Rourkela, Odisha)
+                        if (text.includes('Rambagh, Jaipur')) {
+                            const newText = text.replace('Rambagh, Jaipur', 'Rourkela, Odisha');
+                            if (text !== newText) { text = newText; changed = true; }
+                        }
+
+                        // Timing Replacements (Hide "6pm Onwards")
+                        if (text.includes('6pm Onwards')) {
+                            const newText = text.replace('6pm Onwards', '');
+                            if (text !== newText) { text = newText; changed = true; }
                         }
 
                         // Override Countdown Timer Value

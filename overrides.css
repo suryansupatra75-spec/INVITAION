@@ -250,3 +250,14 @@
 [data-framer-name="Cocktail"] {
     display: none !important;
 }
+
+/* Lock slideshow to the first slide and hide navigation pagination dots and arrows */
+.framer--slideshow-controls {
+    display: none !important;
+}
+
+div:has(+ .framer--slideshow-controls) ul {
+    transform: none !important;
+    transition: none !important;
+}
+
