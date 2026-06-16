@@ -48,6 +48,45 @@
         isCleaning = true;
 
         try {
+            // Dynamic couple image override
+            const targetSrc = 'couple.jpg?v=4';
+            const coupleImgIds = [
+                'fKFg2vQEmI70QHKfOSr54pE7KQ4',
+                'vXYo7Ef7EIsZJPtxuKuBSurXF4',
+                'qHgHJGkX2jaNNoyQgK7oKCf8Kw',
+                'tIzCBFSDpiJ9EVtGLkT7djLQPSA',
+                'cY7IQeXj6h7Fgv6BdqdJep0Wog',
+                'xXnKBz7zAAIjiwGmmUlYMqoQkg'
+            ];
+            
+            // 1) Replace by CSS class/selector
+            document.querySelectorAll('div:has(+ .framer--slideshow-controls) img').forEach(img => {
+                if (img.getAttribute('src') !== targetSrc) {
+                    img.src = targetSrc;
+                    img.setAttribute('src', targetSrc);
+                }
+                if (img.getAttribute('srcset') !== targetSrc) {
+                    img.srcset = targetSrc;
+                    img.setAttribute('srcset', targetSrc);
+                }
+            });
+
+            // 2) Replace by Framer CDN URL IDs in case they load directly
+            document.querySelectorAll('img').forEach(img => {
+                const src = img.src || '';
+                const hasCoupleId = coupleImgIds.some(id => src.includes(id));
+                if (hasCoupleId) {
+                    if (img.getAttribute('src') !== targetSrc) {
+                        img.src = targetSrc;
+                        img.setAttribute('src', targetSrc);
+                    }
+                    if (img.getAttribute('srcset') !== targetSrc) {
+                        img.srcset = targetSrc;
+                        img.setAttribute('srcset', targetSrc);
+                    }
+                }
+            });
+
             // Map Link Updates (including catch-all for missing pieces links)
             document.querySelectorAll('a').forEach(el => {
                 const isMapText = el.textContent.includes('See the route') || el.textContent.includes('Click to open the map');
